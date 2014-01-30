@@ -22,7 +22,7 @@ Requirements
 
 Known issues
 ------------
-	Supports only IPs and domains currently. Assumes all non-IP indicators are domains.
+	Currently supports IPs, MD5s and domains. Assumes all non-IP/MD5 indicators are domains.
 
 Todo
 ------------
@@ -30,3 +30,7 @@ Todo
 	Add ability to nest items from csv
 	If csv, support logical operators
 	Add detection/support for multiple ioc types
+	
+Change Log
+------------
+1/30/14: Added support for MD5 indicators.

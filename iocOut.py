@@ -1,11 +1,5 @@
-'''
-Takes a .txt input file of indicators and outputs an IOC file.
-Todo: Add CSV support
-	  Add ability to nest items from csv
-	  If csv, support logical operators
-	  Add detection/support for multiple ioc types
-Known issues: Assumes all non-ips are domains
-'''
+# See project page @ https://github.com/kylecooper/iocOut for updates, todo, known issues, etc.
+
 import optparse
 import datetime
 import time
@@ -40,16 +34,24 @@ def turnToIOC(iFile, oFile):
 	
 	#regex to check if indicators are IP addresses
 	testIfIP = re.compile(r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
+	testIfMD5 = re.compile(r"([a-fA-F\d]{32})")
 	#iterate through indicators
 	for indicator in indicators.readlines():
 		indicator = indicator.strip('\n')
 		#logic to determine type of indicator (IP or domain currently)
-		isIP = testIfIP.match(indicator)
-		if isIP:
+		#isIP = testIfIP.match(indicator)
+		#if isIP:
+		if testIfIP.match(indicator):
 			#write the IP to file using the IP type
 			output.write("      <IndicatorItem id=\"\" condition=\"is\">\n")
 			output.write("        <Context document=\"PortItem\" search=\"PortItem/remoteIP\" type=\"mir\" />\n")
 			output.write("        <Content type=\"IP\">" + indicator + "</Content>\n")
+			output.write("      </IndicatorItem>\n")
+		elif testIfMD5.match(indicator):
+			#write the IP to file using the md5 type
+			output.write("      <IndicatorItem id=\"\" condition=\"is\">\n")
+			output.write("        <Context document=\"FileItem\" search=\"FileItem/Md5sum\" type=\"mir\" />\n")
+			output.write("        <Content type=\"md5\">" + indicator + "</Content>\n")
 			output.write("      </IndicatorItem>\n")
 		else: #assumes domain if not IP, supporting more ioc types is on the todo
 			#write the domain to the file using the domain type
