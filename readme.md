@@ -5,16 +5,17 @@ Takes a .txt input file of indicators and outputs an IOC file which can then be 
 
 Usage
 -----
-    python iocOut.py [OPTIONS]
+    python iocOut.py [-h] [-f INPUT] [-o OUTPUT] [-n "name"] [-a "author"] [-d "description"]
 
-    OPTION LIST:
-
-	parser.add_option('-f', dest='indicatorFile', type='string', help='indicators to create new IOC file')
-	parser.add_option('-o', dest='outputFileName', type='string', default=None, help='name of the output file')
-	
-	-f    File with indicators to use to generate an IOC file. Currently only .txt files are supported.
-    -o    Optional option to name the output file. If not used, the file will be output as <input filename>.ioc.
-
+    Mandatory Arguments:
+		-f,    		File with indicators to use to generate an IOC file. Currently only .txt files are supported.
+    
+	Optional Arguments:
+		-h, --help	show this message and exit
+		-o,    		Name of the output file. If not used, the file will be output as <input filename>.ioc.
+		-n, 		Populate the "Name" field in IOC Editor. String must be wrapped in quotes.
+		-a,			Populate the "Author" field in IOC Editor. String must be wrapped in quotes.
+		-d, 		Populate the "Description" field in IOC Editor. String must be wrapped in quotes.
 
 Requirements
 ------------
@@ -33,4 +34,5 @@ Todo
 	
 Change Log
 ------------
+2/12/14: Added optional arguments to populate name, author and description fields.
 1/30/14: Added support for MD5 indicators.
